@@ -40,7 +40,7 @@ export function Navbar() {
 			</NavbarBrand>
 			<NavbarContent justify="end">
 				{navItems.map((item) => (
-					<NavbarItem key={item.href}>
+					<NavbarItem name={item.href}>
 						<Link color="foreground" href={item.href}>
 							{item.text}
 						</Link>

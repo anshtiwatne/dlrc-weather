@@ -3,10 +3,8 @@ import 'react-material-symbols/rounded'
 import clsx from 'clsx'
 import { Metadata, Viewport } from 'next'
 import { Poppins } from 'next/font/google'
-import { Suspense } from 'react'
 
 import { Providers } from '@/app/providers'
-import { Navbar } from '@/components/navbar'
 import { FirebaseContextProvider } from '@/config/firebase'
 
 const poppins = Poppins({
@@ -17,8 +15,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
 	title: 'DLRC Weather',
 	applicationName: 'DLRC Daily',
-	description:
-		'Data from the DLRC Weather Station',
+	description: 'Data from the DLRC Weather Station',
 	metadataBase: new URL('https://weather.dlrc.in'),
 	alternates: {
 		canonical: 'https://weather.dlrc.in',
@@ -54,10 +51,7 @@ export default function RootLayout({
 				>
 					<FirebaseContextProvider>
 						<div className="relative flex h-[100dvh] flex-col">
-							<Navbar />
-							<main className="flex h-full w-[100dvw] flex-col items-center">
-								<Suspense>{children}</Suspense>
-							</main>
+							{children}
 						</div>
 					</FirebaseContextProvider>
 				</Providers>

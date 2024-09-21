@@ -5,7 +5,6 @@ import { getAnalytics } from 'firebase/analytics'
 import { getPerformance } from 'firebase/performance'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
-import { getMessaging, getToken } from 'firebase/messaging'
 import {
 	FirebaseAppProvider,
 	AuthProvider,
@@ -37,12 +36,12 @@ export function FirebaseComponents({
 	if (typeof window !== 'undefined') {
 		getAnalytics(app)
 		getPerformance(app)
-		const messaging = getMessaging()
+		// const messaging = getMessaging()
 
-		getToken(messaging, {
-			vapidKey:
-				'BFELbjfUEw6ySUrsjh2C9tatt4cm3ecoU4wdENXBWlcTwR5vvbdr80HtEe07dWcV86ZOdvb8iUCMawBdeyPtefo',
-		})
+		// getToken(messaging, {
+		// 	vapidKey:
+		// 		'BFELbjfUEw6ySUrsjh2C9tatt4cm3ecoU4wdENXBWlcTwR5vvbdr80HtEe07dWcV86ZOdvb8iUCMawBdeyPtefo',
+		// })
 		// .then((currentToken: any) => {
 		// 	if (currentToken) {
 		// 		console.log('Current token for client: ', currentToken)
