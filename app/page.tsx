@@ -164,8 +164,13 @@ export default function Home() {
 							{keyToTitle(name)}
 						</ModalHeader>
 						<ModalBody>
-							{weatherData.measurements.map(
-								(measurement: any) => (
+							{weatherData.measurements
+								.sort(
+									(a: any, b: any) =>
+										b.timestamp.seconds -
+										a.timestamp.seconds,
+								)
+								.map((measurement: any) => (
 									// @ts-ignore
 									<div key={measurement.timestamp}>
 										{measurement[name] && (
@@ -189,8 +194,7 @@ export default function Home() {
 											</div>
 										)}
 									</div>
-								),
-							)}
+								))}
 							{weatherData.measurements.every(
 								(measurement: any) =>
 									measurement[name] === undefined,
