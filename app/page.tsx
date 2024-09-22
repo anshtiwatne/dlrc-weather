@@ -5,6 +5,7 @@ import { useFirestore, useFirestoreDocData } from 'reactfire'
 import {
 	Card,
 	CardBody,
+	CardFooter,
 	CardHeader,
 	DatePicker,
 	DateValue,
@@ -132,7 +133,7 @@ export default function Home() {
 					onClick={onOpen}
 				>
 					<Card className="h-full w-full">
-						<CardHeader className="flex w-full items-center justify-center gap-2 pb-0">
+						<CardHeader className="flex w-full items-center justify-center gap-2 pt-4">
 							<MaterialSymbol icon={icon as any} size={24} />
 							<span className="text-xl">{keyToTitle(name)}</span>
 						</CardHeader>
@@ -145,13 +146,49 @@ export default function Home() {
 												decimals,
 											)}
 										</span>
-										<span>{unit}</span>
+										<span className="text-foreground-600">
+											{unit}
+										</span>
 									</>
 								) : (
 									<span>---</span>
 								)}
 							</div>
 						</CardBody>
+						<CardFooter>
+							{latestMeasurement[name] && (
+								<div className="flex w-full justify-between px-4 pb-2 text-lg">
+									<div>
+										Min:{' '}
+										<span className="font-medium">
+											{weatherData.measurements
+												.reduce(
+													(min: any, current: any) =>
+														current[name] <
+														min[name]
+															? current
+															: min,
+												)
+												[name]?.toFixed(decimals)}
+										</span>
+									</div>
+									<div>
+										Max:{' '}
+										<span className="font-medium">
+											{weatherData.measurements
+												.reduce(
+													(max: any, current: any) =>
+														current[name] >
+														max[name]
+															? current
+															: max,
+												)
+												[name]?.toFixed(decimals)}
+										</span>
+									</div>
+								</div>
+							)}
+						</CardFooter>
 					</Card>
 				</button>
 				<Modal
