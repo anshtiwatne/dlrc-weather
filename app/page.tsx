@@ -86,13 +86,13 @@ export default function Home() {
 						className="text-xl text-foreground-700 hover:text-blue-600"
 						href="https://maps.app.goo.gl/nhkRUvDHx26tuS6U9"
 					>
-						<span className="block md:hidden">DLRC, Sus</span>
+						<span className="block md:hidden">DLRC</span>
 						<span className="hidden md:block">
 							DLRC, Pashan - Sus Rd, Pune
 						</span>
 					</Link>
 				</div>
-				<div className="flex items-center gap-2 md:gap-4">
+				<div className="flex items-center gap-4 md:gap-4">
 					<ThemeSwitch />
 					<DatePicker
 						selectorIcon={
@@ -104,7 +104,7 @@ export default function Home() {
 						}
 						size="lg"
 						value={date}
-						variant="underlined"
+						variant="flat"
 						onChange={setDate}
 					/>
 				</div>
