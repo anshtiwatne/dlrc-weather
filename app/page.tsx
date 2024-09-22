@@ -1,11 +1,13 @@
 'use client'
 
-import { doc, DocumentData } from '@firebase/firestore'
+import { doc } from '@firebase/firestore'
 import { useFirestore, useFirestoreDocData } from 'reactfire'
 import {
 	Card,
 	CardBody,
 	CardHeader,
+	DatePicker,
+	DateValue,
 	Link,
 	Modal,
 	ModalBody,
@@ -14,48 +16,13 @@ import {
 	ScrollShadow,
 	useDisclosure,
 } from '@nextui-org/react'
+import { parseDate } from '@internationalized/date'
 import { MaterialSymbol } from 'react-material-symbols'
+import { useState } from 'react'
 
 import { Loader } from '@/components/loader'
 import { keyToTitle } from '@/utils/text'
-
-function Header({ weatherData }: { weatherData: DocumentData }) {
-	return (
-		<div className="flex w-full items-center justify-between px-4 pt-2">
-			<div className="flex items-center gap-2">
-				<MaterialSymbol icon="location_on" size={24} />
-				<span className="block text-xl md:hidden">DLRC</span>
-				<span className="hidden text-xl md:block">
-					DLRC, the learning farm
-				</span>
-			</div>
-			<div className="flex items-center gap-2">
-				<MaterialSymbol icon="update" size={24} />
-				<span className="text-xl">
-					<span className="block md:hidden">
-						{new Date(
-							weatherData.lastMeasurement.seconds * 1000,
-						).toLocaleTimeString([], {
-							hour: '2-digit',
-							minute: '2-digit',
-						})}
-					</span>
-					<span className="hidden md:block">
-						{new Date(
-							weatherData.lastMeasurement.seconds * 1000,
-						).toLocaleString([], {
-							weekday: 'long',
-							month: 'long',
-							day: 'numeric',
-							hour: '2-digit',
-							minute: '2-digit',
-						})}
-					</span>
-				</span>
-			</div>
-		</div>
-	)
-}
+import { ErrMsg } from '@/components/error'
 
 function Footer() {
 	return (
@@ -91,8 +58,10 @@ function Footer() {
 
 export default function Home() {
 	const db = useFirestore()
-	const today = new Date().toISOString().split('T')[0]
-	const weatherDataRef = doc(db, 'weather', today)
+	const [date, setDate] = useState<DateValue>(
+		parseDate(new Date().toISOString().split('T')[0]),
+	)
+	const weatherDataRef = doc(db, 'weather', date.toString())
 	const { data: weatherData, status: weatherDataStatus } =
 		useFirestoreDocData(weatherDataRef)
 
@@ -100,11 +69,42 @@ export default function Home() {
 		return <Loader />
 	}
 
-	const latestMeasurement = weatherData.measurements.reduce(
+	const latestMeasurement = weatherData?.measurements.reduce(
 		(latest: any, current: any) =>
 			current.timestamp > latest.timestamp ? current : latest,
 		weatherData.measurements[0],
 	)
+
+	function Header() {
+		return (
+			<div className="flex w-full items-center justify-between px-2">
+				<div className="flex items-center gap-2">
+					<MaterialSymbol icon="location_on" size={24} />
+					<Link
+						className="text-xl text-foreground-700 hover:text-blue-600"
+						href="https://maps.app.goo.gl/nhkRUvDHx26tuS6U9"
+					>
+						<span className="block md:hidden">DLRC</span>
+						<span className="hidden md:block">
+							DLRC, Pashan - Sus Rd, Pune
+						</span>
+					</Link>
+				</div>
+				<div>
+					<DatePicker
+						className="m-0 p-0"
+						selectorIcon={
+							<MaterialSymbol icon="edit_calendar" size={24} />
+						}
+						size="lg"
+						value={date}
+						variant="underlined"
+						onChange={setDate}
+					/>
+				</div>
+			</div>
+		)
+	}
 
 	function Measurement({
 		name,
@@ -177,7 +177,7 @@ export default function Home() {
 												<span>
 													{measurement[name].toFixed(
 														decimals,
-													)}
+													)}{' '}
 													{unit}
 												</span>
 											</div>
@@ -196,38 +196,65 @@ export default function Home() {
 		)
 	}
 
+	function getPreviousDate() {
+		const currentDate = new Date(date.toString())
+		const previousDate = new Date(currentDate)
+
+		previousDate.setDate(currentDate.getDate() - 1)
+
+		return parseDate(previousDate.toISOString().split('T')[0])
+	}
+
 	return (
 		<div className="flex h-full w-full flex-col gap-2 overflow-hidden p-4">
-			<Header weatherData={weatherData} />
-			<ScrollShadow
-				hideScrollBar
-				className="flex h-full w-full flex-grow flex-col items-center gap-4 p-4 md:flex-row"
-			>
-				<Measurement
-					decimals={2}
-					icon="thermostat"
-					name="airTemperature"
-					unit="°C"
+			<Header />
+			{weatherData?.measurements.length > 0 ? (
+				<ScrollShadow
+					hideScrollBar
+					className="flex h-full w-full flex-grow flex-col items-center gap-4 p-4 md:flex-row"
+				>
+					<Measurement
+						decimals={2}
+						icon="thermostat"
+						name="airTemperature"
+						unit="°C"
+					/>
+					<Measurement
+						decimals={2}
+						icon="humidity_percentage"
+						name="relativeHumidity"
+						unit="%"
+					/>
+					<Measurement
+						decimals={0}
+						icon="compress"
+						name="atmosphericPressure"
+						unit="hPa"
+					/>
+					<Measurement
+						decimals={2}
+						icon="grass"
+						name="groundTemperature"
+						unit="°C"
+					/>
+				</ScrollShadow>
+			) : (
+				<ErrMsg
+					buttons={[
+						{
+							text: `Check ${new Date(
+								getPreviousDate().toString(),
+							).toLocaleDateString([], {
+								month: 'short',
+								day: 'numeric',
+							})}`,
+							icon: 'edit_calendar',
+							onPress: () => setDate(getPreviousDate()),
+						},
+					]}
+					text="No data recorded ☹️"
 				/>
-				<Measurement
-					decimals={2}
-					icon="humidity_percentage"
-					name="relativeHumidity"
-					unit="%"
-				/>
-				<Measurement
-					decimals={0}
-					icon="compress"
-					name="atmosphericPressure"
-					unit="hPa"
-				/>
-				<Measurement
-					decimals={2}
-					icon="grass"
-					name="groundTemperature"
-					unit="°C"
-				/>
-			</ScrollShadow>
+			)}
 			<div className="hidden px-2 md:block">
 				<Footer />
 			</div>
