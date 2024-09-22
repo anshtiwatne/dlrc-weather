@@ -218,6 +218,9 @@ export default function Home() {
 				<ScrollShadow
 					hideScrollBar
 					className="flex h-full w-full flex-grow flex-col items-center gap-4 p-4 md:flex-row"
+					orientation={
+						window.innerWidth < 768 ? 'vertical' : 'horizontal'
+					}
 				>
 					<Measurement
 						decimals={2}
