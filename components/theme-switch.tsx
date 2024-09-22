@@ -1,42 +1,58 @@
-'use client'
-
+import { useSwitch, VisuallyHidden, SwitchProps } from '@nextui-org/react'
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
-import { Switch } from '@nextui-org/react'
 import { MaterialSymbol } from 'react-material-symbols'
 
 export function ThemeSwitch() {
-	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
 
-	useEffect(() => {
-		setMounted(true)
-	}, [])
+	return (
+		<MaterialSymbol
+			className="text-foreground-700"
+			icon={theme === 'dark' ? 'light_mode' : 'dark_mode'}
+			size={24}
+			onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+		/>
+	)
+}
 
-	if (!mounted) return null
+export function ThemeSwitch2(props: SwitchProps) {
+	const { theme, setTheme } = useTheme()
+	const {
+		Component,
+		slots,
+		isSelected,
+		getBaseProps,
+		getInputProps,
+		getWrapperProps,
+	} = useSwitch(props)
 
 	return (
-		<Switch
-			aria-label="Toggle theme"
-			color="primary"
-			isSelected={theme === 'dark'}
-			size="lg"
-			thumbIcon={({ isSelected, className }) =>
-				isSelected ? (
-					<MaterialSymbol
-						fill
-						className={className}
-						icon="dark_mode"
-					/>
-				) : (
-					<MaterialSymbol
-						fill
-						className={className}
-						icon="light_mode"
-					/>
-				)
-			}
-			onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-		/>
+		<div className="flex flex-col gap-2">
+			<Component
+				{...getBaseProps()}
+				onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+			>
+				<VisuallyHidden>
+					{/* @ts-ignore */}
+					<input {...getInputProps()} />
+				</VisuallyHidden>
+				<div
+					{...getWrapperProps()}
+					className={slots.wrapper({
+						class: [
+							'h-8 w-8',
+							'flex items-center justify-center',
+							'rounded-lg bg-default-100 hover:bg-default-200',
+						],
+					})}
+				>
+					{isSelected ? (
+						<MaterialSymbol icon="light_mode" />
+					) : (
+						<MaterialSymbol icon="dark_mode" />
+					)}
+				</div>
+			</Component>
+		</div>
 	)
 }

@@ -23,6 +23,7 @@ import { useState } from 'react'
 import { Loader } from '@/components/loader'
 import { keyToTitle } from '@/utils/text'
 import { ErrMsg } from '@/components/error'
+import { ThemeSwitch } from '@/components/theme-switch'
 
 function Footer() {
 	return (
@@ -42,15 +43,12 @@ function Footer() {
 					className="text-sm font-medium text-foreground-700 hover:text-blue-600"
 					href="https://ansht.com"
 				>
-					Ansh
+					Ansh Tiwatne
 				</Link>{' '}
 				&{' '}
-				<Link
-					className="text-sm font-medium text-foreground-700 hover:text-blue-600"
-					href=""
-				>
+				<span className="text-sm font-medium text-foreground-700">
 					Mr. Tarun
-				</Link>
+				</span>
 			</div>
 		</div>
 	)
@@ -79,22 +77,30 @@ export default function Home() {
 		return (
 			<div className="flex w-full items-center justify-between px-2">
 				<div className="flex items-center gap-2">
-					<MaterialSymbol icon="location_on" size={24} />
+					<MaterialSymbol
+						className="text-foreground-700"
+						icon="location_on"
+						size={24}
+					/>
 					<Link
 						className="text-xl text-foreground-700 hover:text-blue-600"
 						href="https://maps.app.goo.gl/nhkRUvDHx26tuS6U9"
 					>
-						<span className="block md:hidden">DLRC</span>
+						<span className="block md:hidden">DLRC, Sus</span>
 						<span className="hidden md:block">
 							DLRC, Pashan - Sus Rd, Pune
 						</span>
 					</Link>
 				</div>
-				<div>
+				<div className="flex items-center gap-2 md:gap-4">
+					<ThemeSwitch />
 					<DatePicker
-						className="m-0 p-0"
 						selectorIcon={
-							<MaterialSymbol icon="edit_calendar" size={24} />
+							<MaterialSymbol
+								// className="text-foreground-700"
+								icon="edit_calendar"
+								size={24}
+							/>
 						}
 						size="lg"
 						value={date}
