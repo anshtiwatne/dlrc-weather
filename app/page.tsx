@@ -28,7 +28,7 @@ import { ThemeSwitch } from '@/components/theme-switch'
 
 function Footer({ isShort = false }: { isShort?: boolean }) {
 	return (
-		<div className="flex items-center justify-between pt-2 text-sm text-foreground-600">
+		<div className="flex items-center justify-between text-sm text-foreground-600">
 			<div className="flex items-center gap-1 font-medium">
 				<MaterialSymbol icon="copyright" size={20} />
 				<Link
@@ -76,7 +76,7 @@ export default function Home() {
 
 	function Header() {
 		return (
-			<div className="flex w-full items-center justify-between px-2">
+			<div className="flex w-full items-center justify-between">
 				<div className="flex items-center gap-2">
 					<MaterialSymbol
 						className="text-foreground-700"
@@ -254,12 +254,14 @@ export default function Home() {
 	}
 
 	return (
-		<div className="flex h-full w-full flex-col gap-2 p-4">
-			<Header />
+		<div className="flex h-full w-full flex-col">
+			<div className="mb-2 px-6 pt-4">
+				<Header />
+			</div>
 			{weatherData?.measurements.length > 0 ? (
 				<ScrollShadow
 					hideScrollBar
-					className="flex h-full w-full flex-grow flex-col items-center gap-4 p-2 md:flex-row"
+					className="flex h-full w-full flex-grow flex-col items-center gap-4 px-6 py-2 md:flex-row"
 					orientation={
 						window.innerWidth < 768 ? 'vertical' : 'horizontal'
 					}
@@ -288,7 +290,7 @@ export default function Home() {
 						name="groundTemperature"
 						unit="°C"
 					/>
-					<div className="mb-[-1rem] w-full md:hidden">
+					<div className="mb-[-1rem] mt-2 w-full pb-4 md:hidden">
 						<Footer isShort={true} />
 					</div>
 				</ScrollShadow>
@@ -309,7 +311,7 @@ export default function Home() {
 					text="No data recorded ☹️"
 				/>
 			)}
-			<div className="hidden px-2 md:block">
+			<div className="mt-2 hidden px-6 pb-4 md:block">
 				<Footer />
 			</div>
 		</div>
