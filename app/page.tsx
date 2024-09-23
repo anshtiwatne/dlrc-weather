@@ -26,7 +26,7 @@ import { keyToTitle } from '@/utils/text'
 import { ErrMsg } from '@/components/error'
 import { ThemeSwitch } from '@/components/theme-switch'
 
-function Footer() {
+function Footer({ isShort = false }: { isShort?: boolean }) {
 	return (
 		<div className="flex items-center justify-between pt-2 text-sm text-foreground-600">
 			<div className="flex items-center gap-1 font-medium">
@@ -44,7 +44,7 @@ function Footer() {
 					className="text-sm font-medium text-foreground-700 hover:text-blue-600"
 					href="https://ansht.com"
 				>
-					Ansh Tiwatne
+					{isShort ? 'Ansh' : 'Ansh Tiwatne'}
 				</Link>{' '}
 				&{' '}
 				<span className="text-sm font-medium text-foreground-700">
@@ -96,6 +96,9 @@ export default function Home() {
 				<div className="flex items-center gap-4 md:gap-4">
 					<ThemeSwitch />
 					<DatePicker
+						classNames={{
+							selectorIcon: 'text-foreground-700',
+						}}
 						selectorIcon={
 							<MaterialSymbol
 								// className="text-foreground-700"
@@ -103,9 +106,7 @@ export default function Home() {
 								size={24}
 							/>
 						}
-						size="lg"
 						value={date}
-						variant="flat"
 						onChange={setDate}
 					/>
 				</div>
@@ -253,12 +254,12 @@ export default function Home() {
 	}
 
 	return (
-		<div className="flex h-full w-full flex-col gap-2 overflow-hidden p-4">
+		<div className="flex h-full w-full flex-col gap-2 p-4">
 			<Header />
 			{weatherData?.measurements.length > 0 ? (
 				<ScrollShadow
 					hideScrollBar
-					className="flex h-full w-full flex-grow flex-col items-center gap-4 p-4 md:flex-row"
+					className="flex h-full w-full flex-grow flex-col items-center gap-4 p-2 md:flex-row"
 					orientation={
 						window.innerWidth < 768 ? 'vertical' : 'horizontal'
 					}
@@ -287,6 +288,9 @@ export default function Home() {
 						name="groundTemperature"
 						unit="°C"
 					/>
+					<div className="mb-[-1rem] w-full md:hidden">
+						<Footer isShort={true} />
+					</div>
 				</ScrollShadow>
 			) : (
 				<ErrMsg
