@@ -261,7 +261,7 @@ export default function Home() {
 			{weatherData?.measurements.length > 0 ? (
 				<ScrollShadow
 					hideScrollBar
-					className="flex h-full w-full flex-grow flex-col items-center gap-4 px-6 py-2 md:flex-row"
+					className="flex h-full w-full flex-grow flex-col items-center gap-4 px-6 py-4 md:flex-row md:py-2"
 					orientation={
 						window.innerWidth < 768 ? 'vertical' : 'horizontal'
 					}
