@@ -9,7 +9,7 @@ import {
 	useDisclosure,
 } from '@nextui-org/react'
 
-import { ErrMsg } from '@/components/error'
+import ErrMsg from '@/components/error'
 
 export default function Error({
 	error,
