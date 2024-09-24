@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import {
 	Navbar,
 	NavbarBrand,
@@ -60,7 +61,20 @@ export function Header() {
 }
 
 export function Footer() {
-	const isShort = window.innerWidth < 768
+	const [isShort, setIsShort] = useState(false)
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsShort(window.innerWidth < 768)
+		}
+
+		handleResize()
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [window.innerWidth])
 
 	return (
 		<div className="flex items-center justify-between p-4 px-5 text-sm text-foreground-600">
