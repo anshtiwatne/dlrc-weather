@@ -1,11 +1,12 @@
 import '@/styles/globals.css'
 import 'react-material-symbols/rounded'
-import clsx from 'clsx'
 import { Metadata, Viewport } from 'next'
 import { Poppins } from 'next/font/google'
 
 import { Providers } from '@/app/providers'
 import { FirebaseContextProvider } from '@/config/firebase'
+import { Header, Footer } from '@/components/app-bars'
+import { WeatherDateContextProvider } from '@/hooks/weather-date'
 
 const poppins = Poppins({
 	weight: ['400', '500', '600', '700', '800', '900'],
@@ -14,7 +15,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
 	title: 'DLRC Weather',
-	applicationName: 'DLRC Daily',
+	applicationName: 'DLRC Weather',
 	description: 'Data from the DLRC Weather Station',
 	metadataBase: new URL('https://weather.dlrc.in'),
 	alternates: {
@@ -45,14 +46,18 @@ export default function RootLayout({
 	return (
 		<html suppressHydrationWarning lang="en">
 			<head />
-			<body className={clsx('min-h-[100dvh]', poppins.className)}>
+			<body className={poppins.className}>
 				<Providers
 					themeProps={{ attribute: 'class', defaultTheme: 'light' }}
 				>
 					<FirebaseContextProvider>
-						<div className="relative flex h-[100dvh] flex-col">
-							{children}
-						</div>
+						<WeatherDateContextProvider>
+							<div className="flex h-dvh flex-col justify-between">
+								<Header />
+								{children}
+								<Footer />
+							</div>
+						</WeatherDateContextProvider>
 					</FirebaseContextProvider>
 				</Providers>
 			</body>
