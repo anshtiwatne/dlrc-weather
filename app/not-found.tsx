@@ -1,6 +1,6 @@
 'use client'
 
-import { ErrMsg } from '@/components/error'
+import ErrMsg from '@/components/error'
 
 export default function Error() {
 	return (
