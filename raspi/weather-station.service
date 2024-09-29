@@ -1,0 +1,16 @@
+[Unit]
+Description=Weather Station Script
+After=network-online.target
+Wants=network.target network-online.target
+
+[Service]
+User=ansht
+WorkingDirectory=/home/ansht/weather-station
+ExecStart=/usr/bin/env python3 /home/ansht/weather-station/main.py
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
