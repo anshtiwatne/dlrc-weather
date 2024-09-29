@@ -9,7 +9,7 @@ from google.cloud.firestore import ArrayUnion
 
 import sensors
 
-service_account_key = {} # Add the service account key here
+service_account_key = {} # service account key json
 cred = credentials.Certificate(service_account_key)
 initialize_app(cred)
 
@@ -23,19 +23,12 @@ logging.basicConfig(
 )
 
 
-def get_wait_time():
+def get_wait_time(interval_minutes=15):
 	now = datetime.now()
-	minutes_to_add = 15 - (now.minute % 15)
-
-	if minutes_to_add == 15:
-		minutes_to_add = 0
-
-	next_interval = (now + timedelta(minutes=minutes_to_add)).replace(
-		second=0, microsecond=0
-	)
-
-	sleep_duration = (next_interval - now).total_seconds()
-	return sleep_duration
+	next_interval = (
+		now + timedelta(minutes=interval_minutes - now.minute % interval_minutes)
+	).replace(second=0, microsecond=0)
+	return (next_interval - now).total_seconds()
 
 
 def update_weather():
@@ -74,16 +67,15 @@ def update_weather():
 while True:
 	try:
 		sleep_duration = get_wait_time()
-
-		if sleep_duration > 0:
-			logging.info(
-				"Sleeping for %.2f seconds to align with the next 15-minute interval",
-				sleep_duration,
-			)
-			time.sleep(sleep_duration)
-
+		
+		logging.info(
+			"Sleeping for %.2f seconds to align with the next 15-minute interval",
+			sleep_duration,
+		)
+		time.sleep(sleep_duration)
+		
 		update_weather()
-		time.sleep(30)
+		time.sleep(5)
 
 	except Exception as e:
 		logging.error("An error occurred: %s", e, exc_info=True)
