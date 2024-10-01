@@ -2,4 +2,7 @@
 	<url>
 		<loc>https://weather.dlrc.in</loc>
 	</url>
+    <url>
+		<loc>https://weather.dlrc.in/privacy</loc>
+	</url>
 </urlset>
