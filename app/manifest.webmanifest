@@ -31,12 +31,6 @@
 			"form_factor": "narrow"
 		},
 		{
-			"src": "./screenshots/mobile4.png",
-			"sizes": "1520x3040",
-			"type": "image/png",
-			"form_factor": "narrow"
-		},
-		{
 			"src": "./screenshots/wide1.png",
 			"sizes": "2048x2732",
 			"type": "image/png",
@@ -50,12 +44,6 @@
 		},
 		{
 			"src": "./screenshots/wide3.png",
-			"sizes": "2048x2732",
-			"type": "image/png",
-			"form_factor": "wide"
-		},
-		{
-			"src": "./screenshots/wide4.png",
 			"sizes": "2048x2732",
 			"type": "image/png",
 			"form_factor": "wide"

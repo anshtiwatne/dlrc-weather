@@ -9,6 +9,7 @@ import Loader from '@/components/loader'
 import ErrMsg from '@/components/error'
 import Measurement from '@/components/measurement'
 import { getPreviousDate } from '@/utils/date'
+import { useEffect } from 'react'
 
 export default function Home() {
 	const db = useFirestore()
@@ -16,6 +17,16 @@ export default function Home() {
 	const weatherDataRef = doc(db, 'weather', weatherDate.toString())
 	const { data: weatherData, status: weatherDataStatus } =
 		useFirestoreDocData(weatherDataRef)
+
+	useEffect(() => {
+		if (typeof window === 'undefined') return
+
+		window.addEventListener('load', () => {
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('/sw.js')
+			}
+		})
+	}, [])
 
 	if (weatherDataStatus !== 'success') {
 		return <Loader />
