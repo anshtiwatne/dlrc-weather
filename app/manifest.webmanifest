@@ -73,12 +73,6 @@
 			"type": "image/png",
 			"sizes": "512x512",
 			"purpose": "maskable"
-		},
-		{
-			"src": "./logos/monochrome.png",
-			"type": "image/png",
-			"sizes": "512x512",
-			"purpose": "monochrome"
 		}
 	],
 	"lang": "en",

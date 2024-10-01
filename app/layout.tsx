@@ -48,6 +48,7 @@ export default function RootLayout({
 			<head />
 			<body className={poppins.className}>
 				<Providers
+					// @ts-ignore
 					themeProps={{ attribute: 'class', defaultTheme: 'light' }}
 				>
 					<FirebaseContextProvider>

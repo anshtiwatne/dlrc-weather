@@ -16,6 +16,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 
 	return (
 		<NextUIProvider navigate={router.push}>
+			{/* @ts-ignore */}
 			<NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
 		</NextUIProvider>
 	)
