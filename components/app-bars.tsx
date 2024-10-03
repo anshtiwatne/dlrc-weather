@@ -41,6 +41,7 @@ export function Header() {
 				<NavbarItem className="flex items-center gap-4">
 					<ThemeSwitch />
 					<DatePicker
+						aria-label="weather date"
 						classNames={{
 							selectorIcon: 'text-foreground-700',
 						}}

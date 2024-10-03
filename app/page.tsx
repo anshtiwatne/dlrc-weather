@@ -1,20 +1,28 @@
 'use client'
 
-import { doc } from '@firebase/firestore'
-import { useFirestore, useFirestoreDocData } from 'reactfire'
+import { doc, collection } from '@firebase/firestore'
+import {
+	useFirestore,
+	useFirestoreCollection,
+	useFirestoreDocData,
+} from 'reactfire'
 import { ScrollShadow } from '@nextui-org/react'
 
 import useWeatherDate from '@/hooks/weather-date'
 import Loader from '@/components/loader'
 import ErrMsg from '@/components/error'
 import Measurement from '@/components/measurement'
-import { getPreviousDate } from '@/utils/date'
+import { getLastLogDate } from '@/utils/date'
 import { useEffect } from 'react'
 
 export default function Home() {
 	const db = useFirestore()
 	const { weatherDate, setWeatherDate } = useWeatherDate()
-	const weatherDataRef = doc(db, 'weather', weatherDate.toString())
+	const loggedDaysRef = collection(db, 'weather')
+	const weatherDataRef = doc(loggedDaysRef, weatherDate.toString())
+
+	const { data: loggedDays, status: loggedDaysStatus } =
+		useFirestoreCollection(loggedDaysRef)
 	const { data: weatherData, status: weatherDataStatus } =
 		useFirestoreDocData(weatherDataRef)
 
@@ -28,7 +36,7 @@ export default function Home() {
 		})
 	}, [])
 
-	if (weatherDataStatus !== 'success') {
+	if (loggedDaysStatus !== 'success' || weatherDataStatus !== 'success') {
 		return <Loader />
 	}
 
@@ -72,15 +80,15 @@ export default function Home() {
 				<ErrMsg
 					buttons={[
 						{
-							text: `Check ${new Date(
-								getPreviousDate(weatherDate).toString(),
+							text: `Go to ${new Date(
+								getLastLogDate(loggedDays).toString(),
 							).toLocaleDateString([], {
 								month: 'short',
 								day: 'numeric',
 							})}`,
 							icon: 'edit_calendar',
 							onPress: () =>
-								setWeatherDate(getPreviousDate(weatherDate)),
+								setWeatherDate(getLastLogDate(loggedDays)),
 						},
 					]}
 					text="No data recorded ☹️"

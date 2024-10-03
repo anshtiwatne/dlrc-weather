@@ -1,10 +1,11 @@
+import { DocumentData } from '@firebase/firestore-types'
 import { parseDate } from '@internationalized/date'
-import { DateValue } from '@nextui-org/react'
 
-export function getPreviousDate(currentDate: DateValue) {
-	const previousDate = new Date(currentDate.toString())
+export function getLastLogDate(loggedDays: DocumentData) {
+	const daysArray = loggedDays?.docs.map((doc: DocumentData) => doc.id)
+	const latestDate = daysArray.reduce((latest: string, current: string) => {
+		return new Date(latest) > new Date(current) ? latest : current
+	}, daysArray[0])
 
-	previousDate.setDate(previousDate.getDate() - 1)
-
-	return parseDate(previousDate.toISOString().split('T')[0])
+	return parseDate(new Date(latestDate).toISOString().split('T')[0])
 }
