@@ -86,10 +86,6 @@ def update_weather():
 		format_reading(ds18b20_temp),
 	)
 
-	logging.info(
-		"Weather data updated: Timestamp: %s, Air temperature: %.2f °C, Relative humidity: %.2f %%, Atmospheric pressure: %.2f hPa, Ground temperature: %.2f °C",
-	)
-
 
 while True:
 	try:
