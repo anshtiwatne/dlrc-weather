@@ -34,7 +34,7 @@ def get_wait_time(interval_minutes=15):
 
 def format_reading(value, fmt="%.2f"):
 	if value is None:
-		return "null"  # or "null" if you prefer
+		return "null"
 	return fmt % value
 
 
