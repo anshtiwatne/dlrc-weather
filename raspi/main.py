@@ -3,6 +3,7 @@
 import logging
 import time
 from datetime import date, datetime, timedelta
+from pathlib import Path
 
 from firebase_admin import credentials, firestore, initialize_app
 from google.cloud.firestore import ArrayUnion
@@ -12,11 +13,11 @@ import sensors
 service_account_key = {} # service account key json
 cred = credentials.Certificate(service_account_key)
 initialize_app(cred)
-
 db = firestore.client()
+log_file = Path(__file__).parent / "main.py"
 
 logging.basicConfig(
-	filename="weather_update.log",
+	filename=log_file,
 	level=logging.INFO,
 	format="%(asctime)s - %(levelname)s - %(message)s",
 	datefmt="%Y-%m-%d %H:%M:%S",
