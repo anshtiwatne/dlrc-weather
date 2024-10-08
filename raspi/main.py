@@ -10,7 +10,7 @@ from google.cloud.firestore import ArrayUnion
 
 import sensors
 
-service_account_key = {} # service account key json
+service_account_key = {}  # service account key json
 cred = credentials.Certificate(service_account_key)
 initialize_app(cred)
 db = firestore.client()
@@ -30,6 +30,12 @@ def get_wait_time(interval_minutes=15):
 		now + timedelta(minutes=interval_minutes - now.minute % interval_minutes)
 	).replace(second=0, microsecond=0)
 	return (next_interval - now).total_seconds()
+
+
+def format_reading(value, fmt="%.2f"):
+	if value is None:
+		return "null"  # or "null" if you prefer
+	return fmt % value
 
 
 def update_weather():
@@ -72,12 +78,16 @@ def update_weather():
 	)
 
 	logging.info(
-		"Weather data updated: Timestamp: %s, Air temperature: %.2f °C, Relative humidity: %.2f %%, Atmospheric pressure: %.2f hPa, Ground temperature: %.2f °C",
+		"Weather data updated: Timestamp: %s, Air temperature: %s °C, Relative humidity: %s %%, Atmospheric pressure: %s hPa, Ground temperature: %s °C",
 		bme280_sample.timestamp,
-		bme280_sample.temperature,
-		bme280_sample.humidity,
-		bme280_sample.pressure,
-		ds18b20_temp,
+		format_reading(bme280_sample.temperature),
+		format_reading(bme280_sample.humidity),
+		format_reading(bme280_sample.pressure),
+		format_reading(ds18b20_temp),
+	)
+
+	logging.info(
+		"Weather data updated: Timestamp: %s, Air temperature: %.2f °C, Relative humidity: %.2f %%, Atmospheric pressure: %.2f hPa, Ground temperature: %.2f °C",
 	)
 
 
