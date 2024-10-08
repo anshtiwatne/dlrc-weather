@@ -5,9 +5,9 @@ Wants=network.target network-online.target
 
 [Service]
 User=ansht
-WorkingDirectory=/home/ansht/weather-station
-# ExecStartPre=/bin/bash -c 'pkill -f "python3 /home/ansht/weather-station/main.py" || true'
-ExecStart=/usr/bin/env python3 /home/ansht/weather-station/main.py
+WorkingDirectory=/home/ansht/dlrc-weather
+# ExecStartPre=/bin/bash -c 'pkill -f "python3 /home/ansht/dlrc-weather/main.py" || true'
+ExecStart=/usr/bin/env python3 /home/ansht/dlrc-weather/main.py
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

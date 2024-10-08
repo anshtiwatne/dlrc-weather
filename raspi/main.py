@@ -34,8 +34,24 @@ def get_wait_time(interval_minutes=15):
 
 def update_weather():
 	today = date.today().isoformat()
-	bme280_sample = sensors.BME280().get_sample()
-	ds18b20_temp = sensors.DS18B20().get_temp()
+
+	try:
+		bme280_sample = sensors.BME280().get_sample()
+	except Exception as e:
+		logging.error(e)
+		bme280_sample = {
+			"timestamp": datetime.now(),
+			"airTemperature": None,
+			"relativeHumidity": None,
+			"atmosphericPressure": None,
+			"groundTemperature": None,
+		}
+
+	try:
+		ds18b20_temp = sensors.DS18B20().get_temp()
+	except Exception as e:
+		logging.error(e)
+		ds18b20_temp = None
 
 	db.collection("weather").document(today).set(
 		{
@@ -68,13 +84,13 @@ def update_weather():
 while True:
 	try:
 		sleep_duration = get_wait_time()
-		
+
 		logging.info(
 			"Sleeping for %.2f seconds to align with the next 15-minute interval",
 			sleep_duration,
 		)
 		time.sleep(sleep_duration)
-		
+
 		update_weather()
 		time.sleep(5)
 
