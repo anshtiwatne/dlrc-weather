@@ -14,7 +14,7 @@ service_account_key = {}  # service account key json
 cred = credentials.Certificate(service_account_key)
 initialize_app(cred)
 db = firestore.client()
-log_file = Path(__file__).parent / "main.py"
+log_file = Path(__file__).parent / "weather_update.log"
 
 logging.basicConfig(
 	filename=log_file,
