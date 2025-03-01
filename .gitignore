@@ -12,15 +12,8 @@
 /.next/
 /out/
 
-# firebase
-/.firebase/
-
-# vscode
-/.vscode/
-
 # production
 /build
-/dist
 
 # misc
 .DS_Store

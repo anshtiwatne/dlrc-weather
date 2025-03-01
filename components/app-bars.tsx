@@ -8,10 +8,10 @@ import {
 	NavbarItem,
 	Link,
 	DatePicker,
-} from '@nextui-org/react'
-import { MaterialSymbol } from 'react-material-symbols'
-
+} from '@heroui/react'
+import MaterialSymbol from '@/components/material-symbol'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { CSVDownload } from '@/components/csv-download'
 import useWeatherDate from '@/hooks/weather-date'
 
 export function Header() {
@@ -39,6 +39,7 @@ export function Header() {
 			</NavbarBrand>
 			<NavbarContent justify="end">
 				<NavbarItem className="flex items-center gap-4">
+					<CSVDownload />
 					<ThemeSwitch />
 					<DatePicker
 						aria-label="weather date"
@@ -53,7 +54,7 @@ export function Header() {
 							/>
 						}
 						value={weatherDate}
-						onChange={setWeatherDate}
+						onChange={setWeatherDate as any}
 					/>
 				</NavbarItem>
 			</NavbarContent>

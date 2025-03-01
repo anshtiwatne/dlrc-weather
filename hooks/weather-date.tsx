@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext, createContext, useState } from 'react'
-import { DateValue } from '@nextui-org/react'
+import { DateValue } from '@heroui/react'
 import { CalendarDate } from '@internationalized/date'
 
 interface WeatherDateProps {

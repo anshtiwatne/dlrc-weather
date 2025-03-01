@@ -1,4 +1,4 @@
-import { DocumentData } from '@firebase/firestore-types'
+import { DocumentData } from 'firebase/firestore'
 import { parseDate } from '@internationalized/date'
 
 export function getLastLogDate(loggedDays: DocumentData) {

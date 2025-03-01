@@ -7,7 +7,7 @@ import {
 	ModalBody,
 	ModalHeader,
 	useDisclosure,
-} from '@nextui-org/react'
+} from '@heroui/react'
 
 import ErrMsg from '@/components/error'
 

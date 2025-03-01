@@ -1,6 +1,6 @@
 'use client'
 
-import { Accordion, AccordionItem, Link } from '@nextui-org/react'
+import { Accordion, AccordionItem, Link } from '@heroui/react'
 import { useState, useEffect } from 'react'
 import NextLink from 'next/link'
 

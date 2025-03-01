@@ -1,12 +1,12 @@
 'use client'
 
-import { doc, collection } from '@firebase/firestore'
+import { doc, collection } from 'firebase/firestore'
 import {
 	useFirestore,
 	useFirestoreCollection,
 	useFirestoreDocData,
 } from 'reactfire'
-import { ScrollShadow } from '@nextui-org/react'
+import { ScrollShadow } from '@heroui/react'
 
 import useWeatherDate from '@/hooks/weather-date'
 import Loader from '@/components/loader'

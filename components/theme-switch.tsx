@@ -1,6 +1,6 @@
-import { useSwitch, VisuallyHidden, SwitchProps } from '@nextui-org/react'
+import { useSwitch, VisuallyHidden, SwitchProps } from '@heroui/react'
 import { useTheme } from 'next-themes'
-import { MaterialSymbol } from 'react-material-symbols'
+import MaterialSymbol from '@/components/material-symbol'
 
 export function ThemeSwitch() {
 	const { theme, setTheme } = useTheme()

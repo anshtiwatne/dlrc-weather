@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
-import { MaterialSymbol } from 'react-material-symbols'
+import { Button } from '@heroui/react'
+import MaterialSymbol from '@/components/material-symbol'
 import NextLink from 'next/link'
 
 type ButtonProps = {

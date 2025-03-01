@@ -1,0 +1,90 @@
+{
+	"id": "/",
+	"background_color": "#FFFFFF",
+	"description": "Data from the weather station at DLRC",
+	"dir": "ltr",
+	"display": "standalone",
+	"name": "DLRC Weather",
+	"orientation": "portrait-primary",
+	"scope": "/",
+	"short_name": "DLRC Weather",
+	"start_url": "/",
+	"theme_color": "#000000",
+	"categories": ["weather"],
+	"screenshots": [
+		{
+			"src": "./screenshots/mobile1.png",
+			"sizes": "1520x3040",
+			"type": "image/png",
+			"form_factor": "narrow"
+		},
+		{
+			"src": "./screenshots/mobile2.png",
+			"sizes": "1520x3040",
+			"type": "image/png",
+			"form_factor": "narrow"
+		},
+		{
+			"src": "./screenshots/mobile3.png",
+			"sizes": "1520x3040",
+			"type": "image/png",
+			"form_factor": "narrow"
+		},
+		{
+			"src": "./screenshots/wide1.png",
+			"sizes": "2048x2732",
+			"type": "image/png",
+			"form_factor": "wide"
+		},
+		{
+			"src": "./screenshots/wide2.png",
+			"sizes": "2048x2732",
+			"type": "image/png",
+			"form_factor": "wide"
+		},
+		{
+			"src": "./screenshots/wide3.png",
+			"sizes": "2048x2732",
+			"type": "image/png",
+			"form_factor": "wide"
+		}
+	],
+	"icons": [
+		{
+			"src": "./logos/any.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "any"
+		},
+		{
+			"src": "./logos/maskable.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "maskable"
+		}
+	],
+	"lang": "en",
+	"display_override": [
+		"standalone",
+		"fullscreen",
+		"window-controls-overlay",
+		"minimal-ui",
+		"browser"
+	],
+	"handle_links": "preferred",
+	"launch_handler": {
+		"client_mode": ["navigate-existing", "auto"]
+	},
+	"prefer_related_applications": true,
+	"edge_side_panel": {
+		"preferred_width": 376
+	},
+	"related_applications": [
+		{
+			"platform": "play",
+			"url": "https://play.google.com/store/apps/details?id=in.dlrc.weather.twa",
+			"id": "in.dlrc.weather.twa"
+		}
+	],
+	"gcm_sender_id": "880572742716"
+}

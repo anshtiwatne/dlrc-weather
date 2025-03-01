@@ -1,0 +1,13 @@
+[
+	{
+		"relation": ["delegate_permission/common.handle_all_urls"],
+		"target": {
+			"namespace": "android_app",
+			"package_name": "in.dlrc.weather.twa",
+			"sha256_cert_fingerprints": [
+				"14:A7:61:88:1C:F1:CA:75:5F:C9:01:15:44:67:78:73:D2:0A:0A:19:F4:40:21:AA:03:31:56:E4:D7:75:97:B4",
+				"F7:70:01:EE:0E:BE:56:16:E5:C2:B8:CA:D6:52:6E:F2:32:EC:8C:71:D6:22:82:8B:EF:0B:B5:43:AD:D0:30:C2"
+			]
+		}
+	}
+]

@@ -8,10 +8,10 @@ import {
 	ModalContent,
 	ModalHeader,
 	useDisclosure,
-} from '@nextui-org/react'
-import { MaterialSymbol } from 'react-material-symbols'
+} from '@heroui/react'
+import MaterialSymbol from '@/components/material-symbol'
 import { JetBrains_Mono } from 'next/font/google'
-import { DocumentData } from '@firebase/firestore-types'
+import { DocumentData } from 'firebase/firestore'
 
 import { keyToTitle } from '@/utils/text'
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] })

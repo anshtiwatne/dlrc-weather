@@ -1,5 +1,4 @@
-import '@/styles/globals.css'
-import 'react-material-symbols/rounded'
+import '@/app/globals.css'
 import { Metadata, Viewport } from 'next'
 import { Poppins } from 'next/font/google'
 
